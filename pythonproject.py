@@ -161,7 +161,7 @@ def create_account():
 
     try:
         cursor.execute(query, values)
-    #    conn.commit()
+        conn.commit()
 
         print("Registration successful!")
         print(f"Your account number is: {account_no}")
@@ -196,6 +196,7 @@ def validate_email():
             return email
         else:
             print("❌ Invalid email address. Please try again.")
+            print()
             continue
 
 def check_password():
@@ -388,7 +389,7 @@ def deposit():
         values = (transaction_ref, active_user["account_no"], amount)
         cursor.execute(query, values)
 
-        #conn.commit()
+        conn.commit()
 
         refresh_active_user()
 
@@ -423,6 +424,8 @@ def withdraw():
         values = (transaction_ref, active_user["account_no"], amount)
         cursor.execute(query, values)
 
+        conn.commit()
+
         if cursor.rowcount == 0:
             conn.rollback()
 
@@ -437,7 +440,7 @@ def withdraw():
         values = (active_user["account_no"], amount)
         cursor.execute(query, values)
 
-       # conn.commit()
+        conn.commit()
 
         refresh_active_user()
 
